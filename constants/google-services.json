@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "450218449720",
+    "project_id": "goodman-stock-tracker-app",
+    "storage_bucket": "goodman-stock-tracker-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450218449720:android:36230cf8a612c7c0427fcd",
+        "android_client_info": {
+          "package_name": "com.goodmanltd.goodman_stock_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOqEVkddSL9yEppN1uNrwFb6aAHsomUas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
