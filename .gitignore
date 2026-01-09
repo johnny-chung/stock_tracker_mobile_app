@@ -37,6 +37,8 @@ google_creds/
 *keystore.jks
 credentials/
 credentials*
+base-url.ts
+google-services.json
 
 # typescript
 *.tsbuildinfo
