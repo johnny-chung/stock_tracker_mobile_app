@@ -23,6 +23,26 @@ export type Signal = {
   meta?: Record<string, any>;
 };
 
+export type Trade = {
+  _id?: string;
+  ticker: string;
+  action: "BUY" | "SELL";
+  shares: number;
+  price: number;
+  commission?: number;
+  notes?: string;
+  ts: string;
+  inserted_at?: string;
+};
+
+export type PortfolioState = {
+  _id?: string;
+  ticker: string;
+  cash: number;
+  shares: number;
+  avg_cost?: number;
+};
+
 export type Event = {
   ticker: string;
   interval: string;
@@ -55,6 +75,37 @@ export async function getSignals(): Promise<Signal[]> {
 
 export async function getEvents(): Promise<Event[]> {
   return getJson<Event[]>("/api/events");
+}
+
+export async function getTrades(ticker?: string): Promise<Trade[]> {
+  const q = ticker ? `?ticker=${encodeURIComponent(ticker)}` : "";
+  return getJson<Trade[]>(`/api/trades${q}`);
+}
+
+export async function getPortfolio(ticker?: string): Promise<PortfolioState[]> {
+  const q = ticker ? `?ticker=${encodeURIComponent(ticker)}` : "";
+  return getJson<PortfolioState[]>(`/api/portfolio${q}`);
+}
+
+export async function postTrade(trade: {
+  ticker: string;
+  action: "BUY" | "SELL";
+  shares: number;
+  price: number;
+  commission?: number;
+  notes?: string;
+  ts?: string;
+}): Promise<{ trade: Trade; portfolio: PortfolioState }> {
+  const res = await fetch(`${BASE_URL}/api/trades`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(trade),
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Request failed ${res.status}: ${text}`);
+  }
+  return (await res.json()) as { trade: Trade; portfolio: PortfolioState };
 }
 
 // Small helpers
